@@ -2,24 +2,33 @@ function Game() {
   this.players = {};
 }
 
-function Player(playerName, diceRoll, totalScore) {
-  this.name = playerName;
-  this.diceRoll = diceRoll;
-  this.totalScore = totalScore;
+function Player(playerName) {
+  this.playerName = playerName;
+  this.currentScore = 0;
+  this.totalScore = 0;
+  this.diceRoll = 0;
 }
 
-Player.prototype.playDice = function() {
+Player.prototype.playDice = function () {
   this.diceRoll = Math.floor(Math.random() * 6 + 1);
-  return this.diceRoll;
+  if (this.diceRoll === 1) {
+    return (this.currentScore = 0);
+  } else {
+    this.currentScore += this.diceRoll;
+    return this.currentScore;
+  }
 };
 
-Player.prototype.addPoints = function() {
-  this.addPoints += newScore;
-  return this.addPoints; 
+Player.prototype.holdDice = function () {
+  this.totalScore += this.currentScore;
+  this.diceRoll = 0;
+  if (this.totalScore >= 100) {
+    return this.playerName + " Has Won!";
+  }
 };
 
-let player1 = new Player(' ', 0, 0);
-let player2 = new Player(' ', 0, 0);
+let player1 = new Player("Rafael");
+let player2 = new Player("Oscar");
 
 /*function Player(playerName) {
   let array = [];
